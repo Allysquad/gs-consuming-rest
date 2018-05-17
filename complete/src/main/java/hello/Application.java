@@ -29,6 +29,10 @@ public class Application {
 			Quote quote = restTemplate.getForObject(
 					"http://gturnquist-quoters.cfapps.io/api/random", Quote.class);
 			log.info(quote.toString());
+
+			CMCTicker cmcTicker = restTemplate.getForObject("https://api.coinmarketcap.com/v2/ticker/", CMCTicker.class);
+			CMCTicker cmcTicker = restTemplate.getFor
+			log.info(cmcTicker.toString());
 		};
 	}
 }

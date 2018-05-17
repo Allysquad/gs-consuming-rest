@@ -24,6 +24,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.web.client.RestTemplate;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -37,4 +38,35 @@ public class ApplicationTest {
 		assertThat(restTemplate).isNotNull();
 	}
 
+	String jsonString = "{\n" +
+			"    \"data\": {\n" +
+			"        \"1\": {"+
+			"        \"2132\": {\n" +
+			"            \"id\": 2132, \n" +
+			"            \"name\": \"Power Ledger\", \n" +
+			"            \"symbol\": \"POWR\", \n" +
+			"            \"website_slug\": \"power-ledger\", \n" +
+			"            \"rank\": 100, \n" +
+			"            \"circulating_supply\": 371325802.0, \n" +
+			"            \"total_supply\": 1000000000.0, \n" +
+			"            \"max_supply\": null, \n" +
+			"            \"quotes\": {\n" +
+			"                \"USD\": {\n" +
+			"                    \"price\": 0.458254, \n" +
+			"                    \"volume_24h\": 60260100.0, \n" +
+			"                    \"market_cap\": 170161534.0, \n" +
+			"                    \"percent_change_1h\": -0.47, \n" +
+			"                    \"percent_change_24h\": -8.08, \n" +
+			"                    \"percent_change_7d\": -7.09\n" +
+			"                }\n" +
+			"            }, \n" +
+			"            \"last_updated\": 1526504657\n" +
+			"        }\n" +
+			"    }, \n" +
+			"    \"metadata\": {\n" +
+			"        \"timestamp\": 1526504504, \n" +
+			"        \"num_cryptocurrencies\": 1592, \n" +
+			"        \"error\": null\n" +
+			"    }\n" +
+			"}";
 }

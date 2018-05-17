@@ -48,9 +48,9 @@ If you request that URL through your web browser or curl, you'll receive a JSON 
 
 Easy enough, but not terribly useful when fetched through a browser or through curl.
 
-A more useful way to consume a REST web service is programmatically. To help you with that task, Spring provides a convenient template class called {RestTemplate}[`RestTemplate`]. `RestTemplate` makes interacting with most RESTful services a one-line incantation. And it can even bind that data to custom domain types.
+A more useful way to consume a REST web service is programmatically. To help you with that task, Spring provides a convenient template class called {RestTemplate}[`RestTemplate`]. `RestTemplate` makes interacting with most RESTful services a one-line incantation. And it can even bind that DataObject to custom domain types.
 
-First, create a domain class to contain the data that you need.
+First, create a domain class to contain the DataObject that you need.
 
 `src/main/java/hello/Quote.java`
 [source,java]
@@ -60,7 +60,7 @@ include::complete/src/main/java/hello/Quote.java[]
 
 As you can see, this is a simple Java class with a handful of properties and matching getter methods. It's annotated with `@JsonIgnoreProperties` from the Jackson JSON processing library to indicate that any properties not bound in this type should be ignored.
 
-In order for you to directly bind your data to your custom types, you need to specify the variable name exact same as the key in the JSON Document returned from the API. In case your variable name and key in JSON doc are not matching, you need to use `@JsonProperty` annotation to specify the exact key of JSON document.
+In order for you to directly bind your DataObject to your custom types, you need to specify the variable name exact same as the key in the JSON Document returned from the API. In case your variable name and key in JSON doc are not matching, you need to use `@JsonProperty` annotation to specify the exact key of JSON document.
 
 An additional class is needed to embed the inner quotation itself.
 
@@ -70,13 +70,13 @@ An additional class is needed to embed the inner quotation itself.
 include::complete/src/main/java/hello/Value.java[]
 ----
 
-This uses the same annotations but simply maps onto other data fields.
+This uses the same annotations but simply maps onto other DataObject fields.
 
 == Make the application executable
 
 Although it is possible to package this service as a traditional link:/understanding/WAR[WAR] file for deployment to an external application server, the simpler approach demonstrated below creates a standalone application. You package everything in a single, executable JAR file, driven by a good old Java `main()` method. Along the way, you use Spring's support for embedding the link:/understanding/Tomcat[Tomcat] servlet container as the HTTP runtime, instead of deploying to an external instance.
 
-Now you can write the `Application` class that uses `RestTemplate` to fetch the data from our Spring Boot quotation service.
+Now you can write the `Application` class that uses `RestTemplate` to fetch the DataObject from our Spring Boot quotation service.
 
 `src/main/java/hello/Application.java`
 [source,java,indent=0]
@@ -102,7 +102,7 @@ public class Application {
 }
 ----
 
-Because the Jackson JSON processing library is in the classpath, `RestTemplate` will use it (via a {HttpMessageConverter}[message converter]) to convert the incoming JSON data into a `Quote` object. From there, the contents of the `Quote` object will be logged to the console.
+Because the Jackson JSON processing library is in the classpath, `RestTemplate` will use it (via a {HttpMessageConverter}[message converter]) to convert the incoming JSON DataObject into a `Quote` DataObject. From there, the contents of the `Quote` DataObject will be logged to the console.
 
 Here you've only used `RestTemplate` to make an HTTP `GET` request. But `RestTemplate` also supports other HTTP verbs such as `POST`, `PUT`, and `DELETE`.
 
@@ -142,11 +142,11 @@ The following guides may also be helpful:
 * https://spring.io/guides/gs/consuming-rest-angularjs/[Consuming a RESTful Web Service with AngularJS]
 * https://spring.io/guides/gs/consuming-rest-jquery/[Consuming a RESTful Web Service with jQuery]
 * https://spring.io/guides/gs/consuming-rest-restjs/[Consuming a RESTful Web Service with rest.js]
-* https://spring.io/guides/gs/accessing-gemfire-data-rest/[Accessing GemFire Data with REST]
-* https://spring.io/guides/gs/accessing-mongodb-data-rest/[Accessing MongoDB Data with REST]
-* https://spring.io/guides/gs/accessing-data-mysql/[Accessing data with MySQL]
-* https://spring.io/guides/gs/accessing-data-rest/[Accessing JPA Data with REST]
-* https://spring.io/guides/gs/accessing-neo4j-data-rest/[Accessing Neo4j Data with REST]
+* https://spring.io/guides/gs/accessing-gemfire-DataObject-rest/[Accessing GemFire Data with REST]
+* https://spring.io/guides/gs/accessing-mongodb-DataObject-rest/[Accessing MongoDB Data with REST]
+* https://spring.io/guides/gs/accessing-DataObject-mysql/[Accessing DataObject with MySQL]
+* https://spring.io/guides/gs/accessing-DataObject-rest/[Accessing JPA Data with REST]
+* https://spring.io/guides/gs/accessing-neo4j-DataObject-rest/[Accessing Neo4j Data with REST]
 * https://spring.io/guides/gs/securing-web/[Securing a Web Application]
 * https://spring.io/guides/gs/spring-boot/[Building an Application with Spring Boot]
 * https://spring.io/guides/gs/testing-restdocs/[Creating API Documentation with Restdocs]
