@@ -5,22 +5,123 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Data {
 
-    private DataObject dataObject;
+    private String id;
+    private String name;
+    private String symbol;
+    private String website_slug;
+    private String rank;
+    private String circulating_supply;
+    private String total_supply;
+    private String max_supply;
+    private Quotes quotes;
+    private String last_updated;
+    private Metadata metadata;
 
-    public Data() {
+    Data() {
     }
 
-    public DataObject getDataObject() {
-        return dataObject;
+    String getId() {
+        return id;
     }
 
-    public void setDataObject(DataObject dataObject) {
-        this.dataObject = dataObject;
+    void setId(String id) {
+        this.id = id;
     }
 
-    public String toString(){
-        return  dataObject.getId().toString() + "{" +
-                dataObject +
-                '}';
+    String getName() {
+        return name;
+    }
+
+    void setName(String name) {
+        this.name = name;
+    }
+
+    String getSymbol() {
+        return symbol;
+    }
+
+    void setSymbol(String symbol) {
+        this.symbol = symbol;
+    }
+
+    String getWebsite_slug() {
+        return website_slug;
+    }
+
+    void setWebsite_slug(String website_slug) {
+        this.website_slug = website_slug;
+    }
+
+    String getRank() {
+        return rank;
+    }
+
+    void setRank(String rank) {
+        this.rank = rank;
+    }
+
+    String getCirculating_supply() {
+        return circulating_supply;
+    }
+
+    void setCirculating_supply(String circulating_supply) {
+        this.circulating_supply = circulating_supply;
+    }
+
+    String getTotal_supply() {
+        return total_supply;
+    }
+
+    void setTotal_supply(String total_supply) {
+        this.total_supply = total_supply;
+    }
+
+    String getMax_supply() {
+        return max_supply;
+    }
+
+    void setMax_supply(String max_supply) {
+        this.max_supply = max_supply;
+    }
+
+    Quotes getQuotes() {
+        return quotes;
+    }
+
+    void setQuotes(Quotes quotes) {
+        this.quotes = quotes;
+    }
+
+    String getLast_updated() {
+        return last_updated;
+    }
+
+    void setLast_updated(String last_updated) {
+        this.last_updated = last_updated;
+    }
+
+    Metadata getMetadata() {
+        return metadata;
+    }
+
+    void setMetadata(Metadata metadata) {
+        this.metadata = metadata;
+    }
+
+    public String toString() {
+        return "    \"data\"= {\n" +
+                "        \"id\"= " + id + ", \n" +
+                "        \"name\"= \"" + name + "\", \n" +
+                "        \"symbol\"= \"" + symbol + "\", \n" +
+                "        \"website_slug\"= \"" + website_slug + "\", \n" +
+                "        \"rank\"= " + rank + ", \n" +
+                "        \"circulating_supply\"= " + circulating_supply + ", \n" +
+                "        \"total_supply\"= " + total_supply + ", \n" +
+                "        \"max_supply\"= " + max_supply + ", \n" +
+                "" + quotes + ", \n" +
+                "        \"last_updated\"= " + last_updated + "\n" +
+                "    }, \n";
+
     }
 }
+

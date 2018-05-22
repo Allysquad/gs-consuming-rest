@@ -5,7 +5,7 @@
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ *      http=//www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -16,15 +16,16 @@
 
 package hello;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.web.client.RestTemplate;
-import com.fasterxml.jackson.databind.ObjectMapper;
+
+import static hello.WrapperTest.CreateWrapperObject;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.Assert.assertEquals;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -34,39 +35,52 @@ public class ApplicationTest {
 	private RestTemplate restTemplate;
 
 	@Test
+	public void test() {
+		Application.main(new String[]{
+				"--spring.main.web-environment=false",
+				"--spring.autoconfigure.exclude=blahblahblah",
+				// Override any other environment properties according to your needs
+		});
+	}
+
+	@Test
 	public void contextLoads() {
 		assertThat(restTemplate).isNotNull();
 	}
 
-	String jsonString = "{\n" +
-			"    \"data\": {\n" +
-			"        \"1\": {"+
-			"        \"2132\": {\n" +
-			"            \"id\": 2132, \n" +
-			"            \"name\": \"Power Ledger\", \n" +
-			"            \"symbol\": \"POWR\", \n" +
-			"            \"website_slug\": \"power-ledger\", \n" +
-			"            \"rank\": 100, \n" +
-			"            \"circulating_supply\": 371325802.0, \n" +
-			"            \"total_supply\": 1000000000.0, \n" +
-			"            \"max_supply\": null, \n" +
-			"            \"quotes\": {\n" +
-			"                \"USD\": {\n" +
-			"                    \"price\": 0.458254, \n" +
-			"                    \"volume_24h\": 60260100.0, \n" +
-			"                    \"market_cap\": 170161534.0, \n" +
-			"                    \"percent_change_1h\": -0.47, \n" +
-			"                    \"percent_change_24h\": -8.08, \n" +
-			"                    \"percent_change_7d\": -7.09\n" +
-			"                }\n" +
-			"            }, \n" +
-			"            \"last_updated\": 1526504657\n" +
-			"        }\n" +
+
+	@Test
+	public void testJsonString() {
+		Wrapper wrapper = CreateWrapperObject();
+		assertEquals(jsonString, wrapper.toString());
+	}
+
+	private String jsonString =
+			"{\n" +
+					"    \"data\"= {\n" +
+					"        \"id\"= 1, \n" +
+					"        \"name\"= \"Bitcoin\", \n" +
+					"        \"symbol\"= \"BTC\", \n" +
+					"        \"website_slug\"= \"bitcoin\", \n" +
+					"        \"rank\"= 1, \n" +
+					"        \"circulating_supply\"= 17046825.0, \n" +
+					"        \"total_supply\"= 17046825.0, \n" +
+					"        \"max_supply\"= 21000000.0, \n" +
+					"        \"quotes\"= {\n" +
+					"            \"USD\"= {\n" +
+					"                \"price\"= 8405.39, \n" +
+					"                \"volume_24h\"= 5180290000.0, \n" +
+					"                \"market_cap\"= 143285212387.0, \n" +
+					"                \"percent_change_1h\"= -0.33, \n" +
+					"                \"percent_change_24h\"= -1.44, \n" +
+					"                \"percent_change_7d\"= -4.0\n" +
+					"            }\n" +
+					"        }, \n" +
+					"        \"last_updated\"= 1526941172\n" +
 			"    }, \n" +
-			"    \"metadata\": {\n" +
-			"        \"timestamp\": 1526504504, \n" +
-			"        \"num_cryptocurrencies\": 1592, \n" +
-			"        \"error\": null\n" +
+					"    \"metadata\"= {\n" +
+					"        \"timestamp\"= 1526941080, \n" +
+					"        \"error\"= null\n" +
 			"    }\n" +
 			"}";
 }

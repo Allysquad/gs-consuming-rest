@@ -3,35 +3,32 @@ package hello;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class CMCTicker {
+public class Wrapper {
 
     private Data data;
     private Metadata metadata;
 
-    public CMCTicker() {
+    Wrapper() {
     }
 
-    public Data getData() {
+    Data getData() {
         return data;
     }
 
-    public void setData(Data data) {
+    void setData(Data data) {
         this.data = data;
     }
 
-    public Metadata getMetadata() {
+    Metadata getMetadata() {
         return metadata;
     }
 
-    public void setMetadata(Metadata metadata) {
+    void setMetaData(Metadata metadata) {
         this.metadata = metadata;
     }
 
     public String toString() {
-        return  "CMCTicker{" +
-                "data=" + data +
-                ", Metadata=" + metadata +
-                '}';
+        return "{\n" + data + metadata + "}";
     }
-}
 
+}

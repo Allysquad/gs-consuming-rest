@@ -17,7 +17,7 @@ public class Application {
 	public static void main(String args[]) {
 		SpringApplication.run(Application.class);
 	}
-	
+
 	@Bean
 	public RestTemplate restTemplate(RestTemplateBuilder builder) {
 		return builder.build();
@@ -26,13 +26,9 @@ public class Application {
 	@Bean
 	public CommandLineRunner run(RestTemplate restTemplate) throws Exception {
 		return args -> {
-			Quote quote = restTemplate.getForObject(
-					"http://gturnquist-quoters.cfapps.io/api/random", Quote.class);
-			log.info(quote.toString());
+            Wrapper wrapper = restTemplate.getForObject("https://api.coinmarketcap.com/v2/ticker/1/", Wrapper.class);
+            log.info(wrapper.toString());
 
-			CMCTicker cmcTicker = restTemplate.getForObject("https://api.coinmarketcap.com/v2/ticker/", CMCTicker.class);
-			CMCTicker cmcTicker = restTemplate.getFor
-			log.info(cmcTicker.toString());
 		};
 	}
 }
