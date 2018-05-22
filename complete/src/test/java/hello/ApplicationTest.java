@@ -83,4 +83,33 @@ public class ApplicationTest {
 					"        \"error\"= null\n" +
 			"    }\n" +
 			"}";
+	
+private String anotherJsonString =
+	"{" +
+		"\"data\":{" +
+			"\"id\":1," +
+			"\"name\":\"Bitcoin\"," +
+			"\"symbol\":\"BTC\"," +
+			"\"website_slug\":\"bitcoin\"," +
+			"\"rank\":1," +
+			"\"circulating_supply\":1.704875E7," +
+			"\"total_supply\":1.704875E7," +
+			"\"max_supply\":2.1E7," +
+			"\"quotes\":{" +
+				"\"USD\":{" +
+					"\"price\":8204.01," +
+					"\"volume_24h\":4.89388E9," +
+					"\"market_cap\":1.39868115488E11," +
+					"\"percent_change_1h\":-0.05," +
+					"\"percent_change_24h\":-2.53," +
+					"\"percent_change_7d\":-3.55" +
+				"}" +
+			"}," +
+			"\"last_updated\":1527022475" +
+			"}," +
+			"\"metadata\":{" +
+				"\"timestamp\":1527022379," +
+				"\"error\":null" +
+				"}" +
+			"}";
 }
