@@ -9,26 +9,32 @@ import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.atomic.AtomicReference;
+
 @SpringBootApplication
 public class Application {
 
-	private static final Logger log = LoggerFactory.getLogger(Application.class);
+    private static final Logger log = LoggerFactory.getLogger(Application.class);
 
-	public static void main(String args[]) {
-		SpringApplication.run(Application.class);
-	}
+    public static void main(String args[]) {
+        SpringApplication.run(Application.class);
+    }
 
-	@Bean
-	public RestTemplate restTemplate(RestTemplateBuilder builder) {
-		return builder.build();
-	}
+    @Bean
+    public RestTemplate restTemplate(RestTemplateBuilder builder) {
+        return builder.build();
+    }
 
-	@Bean
-	public CommandLineRunner run(RestTemplate restTemplate) throws Exception {
-		return args -> {
-            Wrapper wrapper = restTemplate.getForObject("https://api.coinmarketcap.com/v2/ticker/1/", Wrapper.class);
-            log.info(wrapper.toString());
-
-		};
-	}
+    @Bean
+    public CommandLineRunner run(RestTemplate restTemplate) {
+        return args -> {
+            AtomicInteger counter = new AtomicInteger(1);
+            while (counter.get() < 5) {
+                Wrapper wrapper = restTemplate.getForObject("https://api.coinmarketcap.com/v2/ticker/" + counter.get() + "/", Wrapper.class);
+                log.info(wrapper.toString());
+                counter.updateAndGet(v -> v + 1);
+            }
+        };
+    }
 }

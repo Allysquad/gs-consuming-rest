@@ -56,7 +56,6 @@ public class DataTest {
         data.setMax_supply("21000000.0");
         data.setQuotes(CreateCMCQuotesObject());
         data.setLast_updated("1526941172");
-        data.setMetadata(CreateMetadataObject());
         return data;
     }
 
@@ -73,7 +72,6 @@ public class DataTest {
         assertEquals(TOTAL_SUPPLY, data.getTotal_supply());
         assertEquals(MAX_SUPPLY, data.getMax_supply());
         assertEquals(LAST_UPDATED, data.getLast_updated());
-        assertEquals(Metadata.class, data.getMetadata().getClass());
         assertEquals(Quotes.class, data.getQuotes().getClass());
     }
 }

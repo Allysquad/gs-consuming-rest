@@ -1,6 +1,7 @@
 package hello;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Data {
@@ -84,10 +85,12 @@ public class Data {
         this.max_supply = max_supply;
     }
 
+    @JsonProperty("quotes")
     Quotes getQuotes() {
         return quotes;
     }
 
+    @JsonProperty("quotes")
     void setQuotes(Quotes quotes) {
         this.quotes = quotes;
     }
@@ -98,14 +101,6 @@ public class Data {
 
     void setLast_updated(String last_updated) {
         this.last_updated = last_updated;
-    }
-
-    Metadata getMetadata() {
-        return metadata;
-    }
-
-    void setMetadata(Metadata metadata) {
-        this.metadata = metadata;
     }
 
     public String toString() {
