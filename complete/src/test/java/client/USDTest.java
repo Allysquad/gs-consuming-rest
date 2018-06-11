@@ -1,4 +1,4 @@
-package hello;
+package client;
 
 
 import org.apache.logging.log4j.LogManager;

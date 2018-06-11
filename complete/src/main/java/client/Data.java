@@ -1,11 +1,17 @@
-package hello;
+package client;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-@JsonIgnoreProperties(ignoreUnknown = true)
-public class Data {
+import javax.persistence.*;
 
+@Entity(name = "Data")
+@DiscriminatorValue("Data")
+@JsonIgnoreProperties(ignoreUnknown = true)
+//@PrimaryKeyJoinColumn(name = "uniqueDataId")
+public class Data extends Wrapper {
+
+    //    private int uniqueDataId;
     private String id;
     private String name;
     private String symbol;
@@ -14,12 +20,16 @@ public class Data {
     private String circulating_supply;
     private String total_supply;
     private String max_supply;
+    @ManyToOne(cascade = {CascadeType.ALL})
     private Quotes quotes;
     private String last_updated;
-    private Metadata metadata;
 
     Data() {
     }
+
+//    int getUniqueDataId() {return uniqueDataId;}
+//
+//    void setUniqueDataId(int uniqueDataId) {this.uniqueDataId = uniqueDataId;}
 
     String getId() {
         return id;
@@ -103,6 +113,7 @@ public class Data {
         this.last_updated = last_updated;
     }
 
+    @Override
     public String toString() {
         return "    \"data\"= {\n" +
                 "        \"id\"= " + id + ", \n" +

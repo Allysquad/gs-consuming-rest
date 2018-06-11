@@ -1,4 +1,4 @@
-package hello;
+package client;
 
 import org.junit.Test;
 

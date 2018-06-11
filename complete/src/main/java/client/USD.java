@@ -1,10 +1,16 @@
-package hello;
+package client;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-@JsonIgnoreProperties(ignoreUnknown = true)
-public class USD {
+import javax.persistence.*;
 
+@Entity(name = "USD")
+@DiscriminatorValue("USD")
+@JsonIgnoreProperties(ignoreUnknown = true)
+//@PrimaryKeyJoinColumn(name = "uniqueUSDId")
+public class USD extends Wrapper {
+
+    //    private int uniqueUSDId;
     private String price;
     private String volume_24h;
     private String market_cap;
@@ -12,9 +18,13 @@ public class USD {
     private String percent_change_24h;
     private String percent_change_7d;
 
-
     USD() {
     }
+
+//    int getUniqueUSDId() {return uniqueUSDId;}
+//
+//    void setUniqueUSDId(int uniqueUSDId) {this.uniqueUSDId = uniqueUSDId;}
+
 
     String getPrice() {
         return price;
@@ -64,6 +74,7 @@ public class USD {
         this.percent_change_7d = percent_change_7d;
     }
 
+    @Override
     public String toString() {
         return "            \"USD\"= {\n" +
                 "                \"price\"= " + price + ", \n" +

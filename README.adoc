@@ -52,10 +52,10 @@ A more useful way to consume a REST web service is programmatically. To help you
 
 First, create a domain class to contain the DataObject that you need.
 
-`src/main/java/hello/Quote.java`
+`src/main/java/client/Quote.java`
 [source,java]
 ----
-include::complete/src/main/java/hello/Quote.java[]
+include::complete/src/main/java/client/Quote.java[]
 ----
 
 As you can see, this is a simple Java class with a handful of properties and matching getter methods. It's annotated with `@JsonIgnoreProperties` from the Jackson JSON processing library to indicate that any properties not bound in this type should be ignored.
@@ -64,10 +64,10 @@ In order for you to directly bind your DataObject to your custom types, you need
 
 An additional class is needed to embed the inner quotation itself.
 
-`src/main/java/hello/Value.java`
+`src/main/java/client/Value.java`
 [source,java]
 ----
-include::complete/src/main/java/hello/Value.java[]
+include::complete/src/main/java/client/Value.java[]
 ----
 
 This uses the same annotations but simply maps onto other DataObject fields.
@@ -78,10 +78,10 @@ Although it is possible to package this service as a traditional link:/understan
 
 Now you can write the `Application` class that uses `RestTemplate` to fetch the DataObject from our Spring Boot quotation service.
 
-`src/main/java/hello/Application.java`
+`src/main/java/client/Application.java`
 [source,java,indent=0]
 ----
-package hello;
+package client;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -110,10 +110,10 @@ Here you've only used `RestTemplate` to make an HTTP `GET` request. But `RestTem
 
 So far we haven't used Spring Boot in our application, but there are some advantages in doing so, and it isn't hard to do. One of the advantages is that we might want to let Spring Boot manage the message converters in the `RestTemplate`, so that customizations are easy to add declaratively. To do that we use `@SpringBootApplication` on the main class and convert the main method to start it up, like in any Spring Boot application. Finally we move the `RestTemplate` to a `CommandLineRunner` callback so it is executed by Spring Boot on startup:
 
-`src/main/java/hello/Application.java`
+`src/main/java/client/Application.java`
 [source,java]
 ----
-include::complete/src/main/java/hello/Application.java[]
+include::complete/src/main/java/client/Application.java[]
 ----
 
 The `RestTemplateBuilder` is injected by Spring, and if you use it to create a `RestTemplate` then you will benefit from all the autoconfiguration that happens in Spring Boot with message converters and request factories. We also extract the `RestTemplate` into a `@Bean` to make it easier to test (it can be mocked more easily that way).
@@ -126,10 +126,10 @@ include::https://raw.githubusercontent.com/spring-guides/getting-started-macros/
 You should see output like the following, with a random quote:
 
 ....
-2015-09-23 14:22:26.415  INFO 23613 --- [main] hello.Application  : Quote{type='success', value=Value{id=12, quote='@springboot with @springframework is pure productivity! Who said in #java one has to write double the code than in other langs? #newFavLib'}}
+2015-09-23 14:22:26.415  INFO 23613 --- [main] client.Application  : Quote{type='success', value=Value{id=12, quote='@springboot with @springframework is pure productivity! Who said in #java one has to write double the code than in other langs? #newFavLib'}}
 ....
 
-NOTE: If you see the error `Could not extract response: no suitable HttpMessageConverter found for response type [class hello.Quote]` it's possible you are in an environment that cannot connect to the backend service (which sends JSON if you can reach it). Maybe you are behind a corporate proxy? Try setting the standard system properties `http.proxyHost` and `http.proxyPort` to values appropriate for your environment.
+NOTE: If you see the error `Could not extract response: no suitable HttpMessageConverter found for response type [class client.Quote]` it's possible you are in an environment that cannot connect to the backend service (which sends JSON if you can reach it). Maybe you are behind a corporate proxy? Try setting the standard system properties `http.proxyHost` and `http.proxyPort` to values appropriate for your environment.
 
 == Summary
 Congratulations! You have just developed a simple REST client using Spring.

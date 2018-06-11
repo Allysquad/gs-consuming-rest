@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package hello;
+package client;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -23,7 +23,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.web.client.RestTemplate;
 
-import static hello.WrapperTest.CreateWrapperObject;
+import static client.WrapperTest.CreateWrapperObject;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertEquals;
 

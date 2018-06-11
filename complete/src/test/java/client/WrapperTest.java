@@ -1,11 +1,11 @@
-package hello;
+package client;
 
 import org.junit.Test;
 
-import static hello.DataTest.CreateDataObject;
-import static hello.DataTest.DATARESPONSESTRING;
-import static hello.MetadataTest.CreateMetadataObject;
-import static hello.MetadataTest.METADATARESPONSESTRING;
+import static client.DataTest.CreateDataObject;
+import static client.DataTest.DATARESPONSESTRING;
+import static client.MetadataTest.CreateMetadataObject;
+import static client.MetadataTest.METADATARESPONSESTRING;
 import static org.junit.Assert.*;
 
 public class WrapperTest {

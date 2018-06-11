@@ -1,10 +1,8 @@
-package hello;
+package client;
 
 import org.junit.Test;
 
-import static hello.QuotesTest.CreateCMCQuotesObject;
-import static hello.MetadataTest.CreateMetadataObject;
-import static hello.MetadataTest.METADATARESPONSESTRING;
+import static client.QuotesTest.CreateCMCQuotesObject;
 import static org.junit.Assert.assertEquals;
 
 

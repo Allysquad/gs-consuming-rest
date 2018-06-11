@@ -1,9 +1,9 @@
-package hello;
+package client;
 
 import org.junit.Test;
 
-import static hello.USDTest.CreateUsdObject;
-import static hello.USDTest.USDRESPONSESTRING;
+import static client.USDTest.CreateUsdObject;
+import static client.USDTest.USDRESPONSESTRING;
 import static org.junit.Assert.*;
 
 public class QuotesTest {
