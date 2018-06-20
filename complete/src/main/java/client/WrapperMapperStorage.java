@@ -1,5 +1,7 @@
 package client;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 
 @Entity(name = "WrapperMapperStorage")
@@ -8,56 +10,63 @@ public class WrapperMapperStorage {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long DB_ID;
-    private String id;
-    private String name;
-    private String symbol;
+    private long ID;
+    private String a11_id;
+    private String a13_name;
+    private String a12_symbol;
+    @JsonIgnore
     private String website_slug;
+    @JsonIgnore
     private String rank;
-    private String circulating_supply;
-    private String total_supply;
+    private String a16_circ_supply;
+    @JsonIgnore
+    private String total_supply; //This is how they dealt with the market cap issue for coins with no max supply
     private String max_supply;
+    @JsonIgnore
     private String last_updated;
     //Metadata
-    private String timestamp;
+    private String a14_timestamp;
     //USD
-    private String price;
-    private String volume_24h;
+    private String a15_price;
+    private String a17_volume_24h;
+    @JsonIgnore
     private String market_cap;
-    private String percent_change_1h;
-    private String percent_change_24h;
-    private String percent_change_7d;
+    private String a18_pchng1;
+    private String a19_pchng24;
+    private String a20_pchng7d;
+    private Float a21_pricePCoin;
+    private String a22_googResult;
 
-    public long getDB_ID() {
-        return DB_ID;
+    public long getID() {
+        return ID;
     }
 
-    public void setDB_ID(long DB_ID) {
-        this.DB_ID = DB_ID;
+    public void setID(long ID) {
+        this.ID = ID;
     }
 
-    public String getId() {
-        return id;
+    public String getA11_id() {
+        return a11_id;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setA11_id(String a11_id) {
+        this.a11_id = a11_id;
     }
 
-    public String getName() {
-        return name;
+    public String getA13_name() {
+        return a13_name;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setA13_name(String a13_name) {
+        this.a13_name = a13_name;
     }
 
-    public String getSymbol() {
-        return symbol;
+    public String getA12_symbol() {
+        return a12_symbol;
     }
 
-    public void setSymbol(String symbol) {
-        this.symbol = symbol;
+    public void setA12_symbol(String a12_symbol) {
+        this.a12_symbol = a12_symbol;
     }
 
     public String getWebsite_slug() {
@@ -76,12 +85,20 @@ public class WrapperMapperStorage {
         this.rank = rank;
     }
 
-    public String getCirculating_supply() {
-        return circulating_supply;
+    public String getA22_googResult() {
+        return a22_googResult;
     }
 
-    public void setCirculating_supply(String circulating_supply) {
-        this.circulating_supply = circulating_supply;
+    public void setA22_googResult(String a22_googResult) {
+        this.a22_googResult = a22_googResult;
+    }
+
+    public String getA16_circ_supply() {
+        return a16_circ_supply;
+    }
+
+    public void setA16_circ_supply(String a16_circ_supply) {
+        this.a16_circ_supply = a16_circ_supply;
     }
 
     public String getTotal_supply() {
@@ -108,28 +125,28 @@ public class WrapperMapperStorage {
         this.last_updated = last_updated;
     }
 
-    public String getTimestamp() {
-        return timestamp;
+    public String getA14_timestamp() {
+        return a14_timestamp;
     }
 
-    public void setTimestamp(String timestamp) {
-        this.timestamp = timestamp;
+    public void setA14_timestamp(String a14_timestamp) {
+        this.a14_timestamp = a14_timestamp;
     }
 
-    public String getPrice() {
-        return price;
+    public String getA15_price() {
+        return a15_price;
     }
 
-    public void setPrice(String price) {
-        this.price = price;
+    public void setA15_price(String a15_price) {
+        this.a15_price = a15_price;
     }
 
-    public String getVolume_24h() {
-        return volume_24h;
+    public String getA17_volume_24h() {
+        return a17_volume_24h;
     }
 
-    public void setVolume_24h(String volume_24h) {
-        this.volume_24h = volume_24h;
+    public void setA17_volume_24h(String a17_volume_24h) {
+        this.a17_volume_24h = a17_volume_24h;
     }
 
     public String getMarket_cap() {
@@ -140,27 +157,35 @@ public class WrapperMapperStorage {
         this.market_cap = market_cap;
     }
 
-    public String getPercent_change_1h() {
-        return percent_change_1h;
+    public String getP_Change_1h() {
+        return a18_pchng1;
     }
 
-    public void setPercent_change_1h(String percent_change_1h) {
-        this.percent_change_1h = percent_change_1h;
+    public void setP_Change_1h(String p_change_1h) {
+        this.a18_pchng1 = p_change_1h;
     }
 
-    public String getPercent_change_24h() {
-        return percent_change_24h;
+    public String getP_Change_24h() {
+        return a19_pchng24;
     }
 
-    public void setPercent_change_24h(String percent_change_24h) {
-        this.percent_change_24h = percent_change_24h;
+    public void setP_Change_24h(String p_change_24h) {
+        this.a19_pchng24 = p_change_24h;
     }
 
-    public String getPercent_change_7d() {
-        return percent_change_7d;
+    public String getP_Change_7d() {
+        return a20_pchng7d;
     }
 
-    public void setPercent_change_7d(String percent_change_7d) {
-        this.percent_change_7d = percent_change_7d;
+    public void setP_Change_7d(String p_change_7d) {
+        this.a20_pchng7d = p_change_7d;
+    }
+
+    public Float getA21_pricePCoin() {
+        return a21_pricePCoin;
+    }
+
+    public void setA21_pricePCoin(Float a21_pricePCoin) {
+        this.a21_pricePCoin = a21_pricePCoin;
     }
 }
