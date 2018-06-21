@@ -1,4 +1,4 @@
-package client;
+package client.GoogleAPI;
 
 import java.io.IOException;
 import java.sql.*;
@@ -13,7 +13,7 @@ public class GoogleTableClient {
     private String value;
     private String timestamp;
 
-    public long getCurrentTime() {
+    private long getCurrentTime() {
         return currentTime;
     }
 
@@ -22,11 +22,11 @@ public class GoogleTableClient {
     }
 
     public void setCurrentTime() {
-        this.currentTime = Instant.now().getEpochSecond();
+        currentTime = Instant.now().getEpochSecond();
     }
 
     public void setExpiredTime() {
-        this.expiredTime = getCurrentTime() - 172800;
+        expiredTime = getCurrentTime() - 172800;
     }
 
     private static Connection connect() {
@@ -42,7 +42,7 @@ public class GoogleTableClient {
     }
 
 
-    public static void updateTable(String coin, String value) {
+    private static void updateTable(String coin, String value) {
         String sql = "UPDATE GOOGLETABLE SET COIN = ?, VALUE = ? , TIMESTAMP = ? WHERE TIMESTAMP < ?";
 
         try (Connection conn = connect();
@@ -66,32 +66,38 @@ public class GoogleTableClient {
     public static void checkTable() throws SQLException, IOException {
         ArrayList<String> stringArray = new ArrayList<>();
         Statement stmt = null;
-        String SQL1 = "SELECT COIN FROM GOOGLETABLE WHERE TIMESTAMP < UNIX_TIMESTAMP(NOW())-172800";
+        Statement stmt2 = null;
+        String SQL1 = "SELECT COUNT(*) FROM GOOGLETABLE WHERE TIMESTAMP < UNIX_TIMESTAMP(NOW())-172800";
+        String SQL2 = "SELECT COIN FROM GOOGLETABLE WHERE TIMESTAMP < UNIX_TIMESTAMP(NOW())-172800";
         try (Connection conn = connect()) {
-            conn.createStatement();
-
+            stmt = conn.createStatement();
+            stmt2 = conn.createStatement();
             ResultSet rs = stmt.executeQuery(SQL1);
             while (rs.next()) {
-                //Does the table update after the values have been checked.
-                updateTable(rs.getString("COIN"), GoogleAPIResponse.main(rs.getString("COIN")));
+                if (rs.getInt(1) > 0) {
+                    ResultSet rs2 = stmt2.executeQuery(SQL2);
+                    //Does the table update after the values have been checked.
+                    updateTable(rs.getString("COIN"), GoogleAPIResponse.main(rs.getString("COIN")));
+                }
             }
-
-
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         } finally {
             if (stmt != null) {
                 stmt.close();
             }
+            if (stmt2 != null) {
+                stmt2.close();
+            }
         }
     }
 
     public static String getValue(String coin) throws SQLException {
         Statement stmt = null;
-        String aString = null;
-        String SQL1 = "SELECT VALUE FROM GOOGLETABLE WHERE COIN = \"" + coin + "\"";
+        String aString = "";
+        String SQL1 = "SELECT VALUE FROM GOOGLETABLE WHERE COIN = \'" + coin + "\'";
         try (Connection conn = connect()) {
-            conn.createStatement();
+            stmt = conn.createStatement();
 
             ResultSet rs = stmt.executeQuery(SQL1);
             while (rs.next()) {

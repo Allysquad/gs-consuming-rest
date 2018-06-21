@@ -1,5 +1,6 @@
 package client;
 
+import client.CoinMarketCapAPI.Metadata;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;

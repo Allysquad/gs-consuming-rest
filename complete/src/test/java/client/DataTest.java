@@ -1,5 +1,7 @@
 package client;
 
+import client.CoinMarketCapAPI.Data;
+import client.CoinMarketCapAPI.Quotes;
 import org.junit.Test;
 
 import static client.QuotesTest.CreateCMCQuotesObject;

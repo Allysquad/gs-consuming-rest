@@ -1,6 +1,7 @@
 package client;
 
 
+import client.CoinMarketCapAPI.USD;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.Test;
@@ -50,8 +51,5 @@ public class USDTest {
         assertEquals(PERCENT_CHANGE_1H, Usd.getPercent_change_1h());
         assertEquals(PERCENT_CHANGE_24H, Usd.getPercent_change_24h());
         assertEquals(PERCENT_CHANGE_7D, Usd.getPercent_change_7d());
-    }
-
-    private static class CreateUsdObject extends USD {
     }
 }

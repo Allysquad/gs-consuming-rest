@@ -1,5 +1,8 @@
 package client;
 
+import client.CoinMarketCapAPI.Data;
+import client.CoinMarketCapAPI.Metadata;
+import client.CoinMarketCapAPI.Wrapper;
 import org.junit.Test;
 
 import static client.DataTest.CreateDataObject;

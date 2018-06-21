@@ -1,4 +1,4 @@
-package client;
+package client.CoinMarketCapAPI;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -20,7 +20,7 @@ public class Wrapper {
     @ManyToOne(cascade = {CascadeType.ALL})
     private Metadata metadata;
 
-    Wrapper() {
+    public Wrapper() {
     }
 
 //    int getUniqueWrapperId() {
@@ -32,22 +32,22 @@ public class Wrapper {
 //    }
 
     @JsonProperty("data")
-    Data getData() {
+    public Data getData() {
         return data;
     }
 
     @JsonProperty("data")
-    void setData(Data data) {
+    public void setData(Data data) {
         this.data = data;
     }
 
     @JsonProperty("metadata")
-    Metadata getMetadata() {
+    public Metadata getMetadata() {
         return metadata;
     }
 
     @JsonProperty("metadata")
-    void setMetaData(Metadata metadata) {
+    public void setMetaData(Metadata metadata) {
         this.metadata = metadata;
     }
 

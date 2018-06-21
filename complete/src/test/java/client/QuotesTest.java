@@ -1,5 +1,7 @@
 package client;
 
+import client.CoinMarketCapAPI.Quotes;
+import client.CoinMarketCapAPI.USD;
 import org.junit.Test;
 
 import static client.USDTest.CreateUsdObject;

@@ -1,4 +1,4 @@
-package client;
+package client.CoinMarketCapAPI;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -24,92 +24,92 @@ public class Data extends Wrapper {
     private Quotes quotes;
     private String last_updated;
 
-    Data() {
+    public Data() {
     }
 
 //    int getUniqueDataId() {return uniqueDataId;}
 //
 //    void setUniqueDataId(int uniqueDataId) {this.uniqueDataId = uniqueDataId;}
 
-    String getId() {
+    public String getId() {
         return id;
     }
 
-    void setId(String id) {
+    public void setId(String id) {
         this.id = id;
     }
 
-    String getName() {
+    public String getName() {
         return name;
     }
 
-    void setName(String name) {
+    public void setName(String name) {
         this.name = name;
     }
 
-    String getSymbol() {
+    public String getSymbol() {
         return symbol;
     }
 
-    void setSymbol(String symbol) {
+    public void setSymbol(String symbol) {
         this.symbol = symbol;
     }
 
-    String getWebsite_slug() {
+    public String getWebsite_slug() {
         return website_slug;
     }
 
-    void setWebsite_slug(String website_slug) {
+    public void setWebsite_slug(String website_slug) {
         this.website_slug = website_slug;
     }
 
-    String getRank() {
+    public String getRank() {
         return rank;
     }
 
-    void setRank(String rank) {
+    public void setRank(String rank) {
         this.rank = rank;
     }
 
-    String getCirculating_supply() {
+    public String getCirculating_supply() {
         return circulating_supply;
     }
 
-    void setCirculating_supply(String circulating_supply) {
+    public void setCirculating_supply(String circulating_supply) {
         this.circulating_supply = circulating_supply;
     }
 
-    String getTotal_supply() {
+    public String getTotal_supply() {
         return total_supply;
     }
 
-    void setTotal_supply(String total_supply) {
+    public void setTotal_supply(String total_supply) {
         this.total_supply = total_supply;
     }
 
-    String getMax_supply() {
+    public String getMax_supply() {
         return max_supply;
     }
 
-    void setMax_supply(String max_supply) {
+    public void setMax_supply(String max_supply) {
         this.max_supply = max_supply;
     }
 
     @JsonProperty("quotes")
-    Quotes getQuotes() {
+    public Quotes getQuotes() {
         return quotes;
     }
 
     @JsonProperty("quotes")
-    void setQuotes(Quotes quotes) {
+    public void setQuotes(Quotes quotes) {
         this.quotes = quotes;
     }
 
-    String getLast_updated() {
+    public String getLast_updated() {
         return last_updated;
     }
 
-    void setLast_updated(String last_updated) {
+    public void setLast_updated(String last_updated) {
         this.last_updated = last_updated;
     }
 

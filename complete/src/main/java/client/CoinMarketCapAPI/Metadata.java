@@ -1,4 +1,4 @@
-package client;
+package client.CoinMarketCapAPI;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -12,23 +12,23 @@ public class Metadata extends Wrapper {
     private String timestamp;
     private String error;
 
-    Metadata() {
+    public Metadata() {
     }
 
-    String getTimestamp() {
+    public String getTimestamp() {
         return timestamp;
     }
 
-    void setTimestamp(String timestamp) {
+    public void setTimestamp(String timestamp) {
         this.timestamp = timestamp;
     }
 
 
-    String getError() {
+    public String getError() {
         return error;
     }
 
-    void setError(String error) {
+    public void setError(String error) {
         this.error = error;
     }
 

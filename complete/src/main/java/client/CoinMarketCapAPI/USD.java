@@ -1,4 +1,4 @@
-package client;
+package client.CoinMarketCapAPI;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -18,7 +18,7 @@ public class USD extends Wrapper {
     private String percent_change_24h;
     private String percent_change_7d;
 
-    USD() {
+    public USD() {
     }
 
 //    int getUniqueUSDId() {return uniqueUSDId;}
@@ -26,51 +26,51 @@ public class USD extends Wrapper {
 //    void setUniqueUSDId(int uniqueUSDId) {this.uniqueUSDId = uniqueUSDId;}
 
 
-    String getPrice() {
+    public String getPrice() {
         return price;
     }
 
-    void setPrice(String price) {
+    public void setPrice(String price) {
         this.price = price;
     }
 
-    String getVolume_24h() {
+    public String getVolume_24h() {
         return volume_24h;
     }
 
-    void setVolume_24h(String volume_24h) {
+    public void setVolume_24h(String volume_24h) {
         this.volume_24h = volume_24h;
     }
 
-    String getMarket_cap() {
+    public String getMarket_cap() {
         return market_cap;
     }
 
-    void setMarket_cap(String market_cap) {
+    public void setMarket_cap(String market_cap) {
         this.market_cap = market_cap;
     }
 
-    String getPercent_change_1h() {
+    public String getPercent_change_1h() {
         return percent_change_1h;
     }
 
-    void setPercent_change_1h(String percent_change_1h) {
+    public void setPercent_change_1h(String percent_change_1h) {
         this.percent_change_1h = percent_change_1h;
     }
 
-    String getPercent_change_24h() {
+    public String getPercent_change_24h() {
         return percent_change_24h;
     }
 
-    void setPercent_change_24h(String percent_change_24h) {
+    public void setPercent_change_24h(String percent_change_24h) {
         this.percent_change_24h = percent_change_24h;
     }
 
-    String getPercent_change_7d() {
+    public String getPercent_change_7d() {
         return percent_change_7d;
     }
 
-    void setPercent_change_7d(String percent_change_7d) {
+    public void setPercent_change_7d(String percent_change_7d) {
         this.percent_change_7d = percent_change_7d;
     }
 

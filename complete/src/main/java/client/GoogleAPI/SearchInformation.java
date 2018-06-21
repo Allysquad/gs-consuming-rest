@@ -1,17 +1,17 @@
-package client;
+package client.GoogleAPI;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class MappedGoogleResponse {
+public class SearchInformation {
+
+    private String totalResults;
 
     @JsonProperty("SearchInformation")
     private SearchInformation searchInformation;
 
     @Override
     public String toString() {
-        return "" + searchInformation;
+        return "" + totalResults;
     }
 }
-
-
 

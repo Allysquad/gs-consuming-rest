@@ -1,4 +1,4 @@
-package client;
+package client.CoinMarketCapAPI;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 

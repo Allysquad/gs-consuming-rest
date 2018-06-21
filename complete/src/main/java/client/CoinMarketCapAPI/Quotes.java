@@ -1,4 +1,4 @@
-package client;
+package client.CoinMarketCapAPI;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -15,7 +15,7 @@ public class Quotes extends Wrapper {
     @ManyToOne(cascade = {CascadeType.ALL})
     private USD uSD;
 
-    Quotes() {
+    public Quotes() {
     }
 
 //    int getUniqueQuotesId() {return uniqueQuotesId;}
@@ -23,12 +23,12 @@ public class Quotes extends Wrapper {
 //    void setUniqueQuotesId(int uniqueQuotesId) {this.uniqueQuotesId = uniqueQuotesId;}
 
     @JsonProperty("USD")
-    USD getUSD() {
+    public USD getUSD() {
         return uSD;
     }
 
     @JsonProperty("USD")
-    void setUSD(USD uSD) {
+    public void setUSD(USD uSD) {
         this.uSD = uSD;
     }
 

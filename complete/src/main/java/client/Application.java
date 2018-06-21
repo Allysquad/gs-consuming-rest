@@ -1,5 +1,10 @@
 package client;
 
+import client.CoinMarketCapAPI.DatabaseCleaner;
+import client.CoinMarketCapAPI.Wrapper;
+import client.CoinMarketCapAPI.WrapperMapperStorage;
+import client.CoinMarketCapAPI.WrapperMapperStorageRepository;
+import client.GoogleAPI.GoogleTableClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,12 +43,10 @@ public class Application {
     @Bean
     public CommandLineRunner run(RestTemplate restTemplate) {
 
-        return args -> {
-            reRunner(restTemplate);
-        };
+        return args -> reRunner(restTemplate);
     }
 
-    public void reRunner(RestTemplate restTemplate) throws IOException, SQLException {
+    private void reRunner(RestTemplate restTemplate) throws IOException, SQLException {
 
         while (myBool) {
             try {
@@ -52,14 +55,14 @@ public class Application {
                 Set<Integer> coinSet = new HashSet<>();
                 coinSet.add(1);
                 coinSet.add(1027);
-//                coinSet.add(52);
-//                coinSet.add(1831);
-//                coinSet.add(1765);
-//                coinSet.add(2);
-//                coinSet.add(512);
-//                coinSet.add(2010);
-//                coinSet.add(1720);
-//                coinSet.add(1958);
+                coinSet.add(52);
+                coinSet.add(1831);
+                coinSet.add(1765);
+                coinSet.add(2);
+                coinSet.add(512);
+                coinSet.add(2010);
+                coinSet.add(1720);
+                coinSet.add(1958);
 
                 while (counter.get() < 3000) {
                     if (coinSet.contains(counter.get())) {

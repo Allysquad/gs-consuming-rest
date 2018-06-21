@@ -1,4 +1,4 @@
-package client;
+package client.CoinMarketCapAPI;
 
 import org.springframework.data.repository.CrudRepository;
 
