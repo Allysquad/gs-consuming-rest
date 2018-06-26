@@ -22,6 +22,7 @@ class GoogleAPIResponse {
             System.out.println(mappedGoogleResponse.toString());
             return mappedGoogleResponse.toString();
         }
+//        return "335000000"; for testing response from API.
     }
 }
 

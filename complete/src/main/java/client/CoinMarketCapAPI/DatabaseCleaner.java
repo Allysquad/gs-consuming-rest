@@ -32,8 +32,8 @@ public class DatabaseCleaner {
     }
 
     public void setExpiredTime() {
-        this.expiredTime = getCurrentTime() - 3600;
-    }
+        this.expiredTime = getCurrentTime() - 172800;
+    } //3600
 
     private Connection connect() {
         // SQLite connection string

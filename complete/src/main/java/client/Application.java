@@ -54,15 +54,15 @@ public class Application {
                 AtomicInteger counter = new AtomicInteger(1);
                 Set<Integer> coinSet = new HashSet<>();
                 coinSet.add(1);
-                coinSet.add(1027);
-                coinSet.add(52);
-                coinSet.add(1831);
-                coinSet.add(1765);
-                coinSet.add(2);
-                coinSet.add(512);
-                coinSet.add(2010);
-                coinSet.add(1720);
-                coinSet.add(1958);
+//                coinSet.add(1027);
+//                coinSet.add(52);
+//                coinSet.add(1831);
+//                coinSet.add(1765);
+//                coinSet.add(2);
+//                coinSet.add(512);
+//                coinSet.add(2010);
+//                coinSet.add(1720);
+//                coinSet.add(1958);
 
                 while (counter.get() < 3000) {
                     if (coinSet.contains(counter.get())) {
@@ -79,6 +79,7 @@ public class Application {
     }
 
     private void cleaner() {
+        log.info("Cleaning");
         DatabaseCleaner dbCleaner = new DatabaseCleaner();
         dbCleaner.setCurrentTime();
         dbCleaner.setExpiredTime();
@@ -92,6 +93,7 @@ public class Application {
     }
 
     private WrapperMapperStorage map(RestTemplate restTemplate, AtomicInteger counter) throws IOException, SQLException {
+        log.info("Mapping");
         Wrapper wrapper = restTemplate.getForObject("https://api.coinmarketcap.com/v2/ticker/" + counter.get() + "/", Wrapper.class);
         log.info(wrapper.toString());
         WrapperMapperStorage wMStorage = new WrapperMapperStorage();
@@ -112,7 +114,9 @@ public class Application {
         wMStorage.setP_Change_24h(wrapper.getData().getQuotes().getUSD().getPercent_change_24h());
         wMStorage.setP_Change_7d(wrapper.getData().getQuotes().getUSD().getPercent_change_7d());
         wMStorage.setA21_pricePCoin(stringComputeStringConverter(wrapper.getData().getQuotes().getUSD().getPrice(), wrapper.getData().getCirculating_supply()));
+        log.info("Calling Check Table");
         GoogleTableClient.checkTable();
+        log.info("Calling Google Set Result");
         wMStorage.setA22_googResult(GoogleTableClient.getValue(wrapper.getData().getName()));
         return wMStorage;
     }

@@ -1,38 +1,12 @@
-package client.GoogleAPI;
+package client.CoinMarketCapAPI.Hybrid;
 
-import client.Application;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import client.GoogleAPI.GoogleAPIResponse;
 
 import java.io.IOException;
 import java.sql.*;
-import java.time.Instant;
 import java.util.ArrayList;
 
-public class GoogleTableClient {
-
-    private static final Logger log = LoggerFactory.getLogger(Application.class);
-    private static long currentTime;
-    private static long expiredTime;
-    private String coin;
-    private String value;
-    private String timestamp;
-
-    private static long getCurrentTime() {
-        return currentTime;
-    }
-
-    public static long getExpiredTime() {
-        return expiredTime;
-    }
-
-    public static void setCurrentTime() {
-        currentTime = Instant.now().getEpochSecond();
-    }
-
-    public static void setExpiredTime() {
-        expiredTime = getCurrentTime() - 172800;
-    }
+public class HybridApplication {
 
     private static Connection connect() {
         // SQLite connection string
@@ -46,10 +20,9 @@ public class GoogleTableClient {
         return conn;
     }
 
-
-    private static void updateTable(String coin, String value) {
+    private static void updateHybrid(String coin, String value) {
         log.info("Updating");
-        String sql = "UPDATE GOOGLETABLE SET VALUE = ? , TIMESTAMP = ? WHERE TIMESTAMP < ? AND COIN = ?";
+        String sql = "UPDATE HYBRIDTABLE SET VALUE = ? , TIMESTAMP = ? WHERE TIMESTAMP < ? AND COIN = ?";
 
         try (Connection conn = connect();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -103,28 +76,4 @@ public class GoogleTableClient {
             }
         }
     }
-
-    public static String getValue(String coin) throws SQLException {
-        Statement stmt = null;
-        String aString = "";
-        String SQL1 = "SELECT VALUE FROM GOOGLETABLE WHERE COIN = \'" + coin + "\'";
-        try (Connection conn = connect()) {
-            stmt = conn.createStatement();
-
-            ResultSet rs = stmt.executeQuery(SQL1);
-            while (rs.next()) {
-                //Does the table update after the values have been checked.
-                aString = aString.concat(rs.getString("VALUE"));
-            }
-
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        } finally {
-            if (stmt != null) {
-                stmt.close();
-            }
-        }
-        return aString;
-    }
 }
-
