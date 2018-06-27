@@ -147,8 +147,8 @@ public class HybridApplication {
 
     }
 
-    public void main() {
-        doWork("bitcoin");
+    public void main(String coinName) {
+        doWork(coinName);
     }
 
 

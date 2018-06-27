@@ -71,7 +71,8 @@ public class Application {
                     if (coinSet.contains(counter.get())) {
                         WrapperMapperStorage wMStorage = map(restTemplate, counter);
                         wrapperMapperStorageRepository.save(wMStorage);
-                        myHybrid.main();
+                        // Calling to hybrid.
+                        myHybrid.main(wMStorage.getA13_name());
                     }
                     counter.updateAndGet(v -> v + 1);
                 }
