@@ -31,11 +31,10 @@ public class GoogleTableClient {
     }
 
     public static void setExpiredTime() {
-        expiredTime = getCurrentTime() - 172800;
+        expiredTime = getCurrentTime() - 86400;
     }
 
     private static Connection connect() {
-        // SQLite connection string
         String url = "jdbc:mysql://localhost:3306/db_example?autoReconnect=true&useSSL=false";
         Connection conn = null;
         try {
@@ -48,7 +47,6 @@ public class GoogleTableClient {
 
 
     private static void updateTable(String coin, String value) {
-        log.info("Updating");
         String sql = "UPDATE GOOGLETABLE SET VALUE = ? , TIMESTAMP = ? WHERE TIMESTAMP < ? AND COIN = ?";
 
         try (Connection conn = connect();
@@ -57,14 +55,11 @@ public class GoogleTableClient {
             setExpiredTime();
             // set the corresponding param
             pstmt.setString(1, value);
-            log.info("Current Time : " + currentTime);
             pstmt.setLong(2, currentTime);
-            log.info("Expired Time : " + expiredTime);
             pstmt.setLong(3, expiredTime);
             pstmt.setString(4, coin);
             // execute the delete statement
             pstmt.executeUpdate();
-            log.info("Updated");
 
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -73,19 +68,19 @@ public class GoogleTableClient {
 
     // Instead of returning a value, I'll just automatically update the table with new values.
     //Hard coding the timestamps to save on shitty java.
-    public static void checkTable() throws SQLException, IOException {
-        ArrayList<String> stringArray = new ArrayList<>();
+    public static void checkTable(String coin) throws SQLException, IOException {
         Statement stmt = null;
-        Statement stmt2 = null;
-        String SQL1 = "SELECT COUNT(*) FROM GOOGLETABLE WHERE TIMESTAMP < UNIX_TIMESTAMP(NOW())-172800";
-        String SQL2 = "SELECT COIN FROM GOOGLETABLE WHERE TIMESTAMP < UNIX_TIMESTAMP(NOW())-172800";
+        PreparedStatement stmt2 = null;
+        String SQL1 = "SELECT COUNT(*) FROM GOOGLETABLE WHERE TIMESTAMP < UNIX_TIMESTAMP(NOW()-86400)";
+        String SQL2 = "SELECT COIN FROM GOOGLETABLE WHERE TIMESTAMP < UNIX_TIMESTAMP(NOW()-86400) AND COIN = ?";
         try (Connection conn = connect()) {
             stmt = conn.createStatement();
-            stmt2 = conn.createStatement();
+            stmt2 = conn.prepareStatement(SQL2);
+            stmt2.setString(1, coin);
             ResultSet rs = stmt.executeQuery(SQL1);
             while (rs.next()) {
                 if (rs.getInt(1) > 0) {
-                    ResultSet rs2 = stmt2.executeQuery(SQL2);
+                    ResultSet rs2 = stmt2.executeQuery();
                     //Does the table update after the values have been checked.
                     while (rs2.next()) {
                         updateTable(rs2.getString("COIN"), GoogleAPIResponse.main(rs2.getString("COIN")));

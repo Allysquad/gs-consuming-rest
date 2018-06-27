@@ -5,6 +5,7 @@ import client.CoinMarketCapAPI.Wrapper;
 import client.CoinMarketCapAPI.WrapperMapperStorage;
 import client.CoinMarketCapAPI.WrapperMapperStorageRepository;
 import client.GoogleAPI.GoogleTableClient;
+import client.HybridAPP.HybridApplication;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,8 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class Application {
 
     private Boolean myBool = true;
+
+    private HybridApplication myHybrid = new HybridApplication();
 
     @Autowired
     private WrapperMapperStorageRepository wrapperMapperStorageRepository;
@@ -68,6 +71,7 @@ public class Application {
                     if (coinSet.contains(counter.get())) {
                         WrapperMapperStorage wMStorage = map(restTemplate, counter);
                         wrapperMapperStorageRepository.save(wMStorage);
+                        myHybrid.main();
                     }
                     counter.updateAndGet(v -> v + 1);
                 }
@@ -95,7 +99,7 @@ public class Application {
     private WrapperMapperStorage map(RestTemplate restTemplate, AtomicInteger counter) throws IOException, SQLException {
         log.info("Mapping");
         Wrapper wrapper = restTemplate.getForObject("https://api.coinmarketcap.com/v2/ticker/" + counter.get() + "/", Wrapper.class);
-        log.info(wrapper.toString());
+//        log.info(wrapper.toString());
         WrapperMapperStorage wMStorage = new WrapperMapperStorage();
         wMStorage.setA11_id(wrapper.getData().getId());
         wMStorage.setA13_name(wrapper.getData().getName());
@@ -115,8 +119,8 @@ public class Application {
         wMStorage.setP_Change_7d(wrapper.getData().getQuotes().getUSD().getPercent_change_7d());
         wMStorage.setA21_pricePCoin(stringComputeStringConverter(wrapper.getData().getQuotes().getUSD().getPrice(), wrapper.getData().getCirculating_supply()));
         log.info("Calling Check Table");
-        GoogleTableClient.checkTable();
-        log.info("Calling Google Set Result");
+        GoogleTableClient.checkTable(wrapper.getData().getName());
+        log.info("Calling Store google Result");
         wMStorage.setA22_googResult(GoogleTableClient.getValue(wrapper.getData().getName()));
         return wMStorage;
     }
