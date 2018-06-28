@@ -30,7 +30,7 @@ public class WrapperMapperStorage {
     private String a15_price;
     private String a17_volume_24h;
     @JsonIgnore
-    private String market_cap;
+    private String A23_Market_cap;
     private String a18_pchng1;
     private String a19_pchng24;
     private String a20_pchng7d;
@@ -69,6 +69,7 @@ public class WrapperMapperStorage {
         this.a12_symbol = a12_symbol;
     }
 
+    @JsonIgnore
     public String getWebsite_slug() {
         return website_slug;
     }
@@ -101,6 +102,7 @@ public class WrapperMapperStorage {
         this.a16_circ_supply = a16_circ_supply;
     }
 
+    @JsonIgnore
     public String getTotal_supply() {
         return total_supply;
     }
@@ -149,12 +151,12 @@ public class WrapperMapperStorage {
         this.a17_volume_24h = a17_volume_24h;
     }
 
-    public String getMarket_cap() {
-        return market_cap;
+    public String getA23_Market_cap() {
+        return A23_Market_cap;
     }
 
-    public void setMarket_cap(String market_cap) {
-        this.market_cap = market_cap;
+    public void setA23_Market_cap(String A23_Market_cap) {
+        this.A23_Market_cap = A23_Market_cap;
     }
 
     public String getP_Change_1h() {

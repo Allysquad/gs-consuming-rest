@@ -14,9 +14,6 @@ public class GoogleTableClient {
     private static final Logger log = LoggerFactory.getLogger(Application.class);
     private static long currentTime;
     private static long expiredTime;
-    private String coin;
-    private String value;
-    private String timestamp;
 
     private static long getCurrentTime() {
         return currentTime;

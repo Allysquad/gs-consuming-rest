@@ -114,7 +114,7 @@ public class Application {
         wMStorage.setA14_timestamp(wrapper.getMetadata().getTimestamp());
         wMStorage.setA15_price(wrapper.getData().getQuotes().getUSD().getPrice());
         wMStorage.setA17_volume_24h(wrapper.getData().getQuotes().getUSD().getVolume_24h());
-        wMStorage.setMarket_cap(wrapper.getData().getQuotes().getUSD().getMarket_cap());
+        wMStorage.setA23_Market_cap(wrapper.getData().getQuotes().getUSD().getMarket_cap());
         wMStorage.setP_Change_1h(wrapper.getData().getQuotes().getUSD().getPercent_change_1h());
         wMStorage.setP_Change_24h(wrapper.getData().getQuotes().getUSD().getPercent_change_24h());
         wMStorage.setP_Change_7d(wrapper.getData().getQuotes().getUSD().getPercent_change_7d());
