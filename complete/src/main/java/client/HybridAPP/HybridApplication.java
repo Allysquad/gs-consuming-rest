@@ -173,8 +173,10 @@ public class HybridApplication {
     }
 
     private void doWork(String coinName) {
+        System.out.println("now working on " + coinName);
         //pull all the data for a coin
         String price = pullMarketCap(coinName);
+        System.out.println("price : " + price);
         String googleValue = pullGoogleValue(coinName);
         String facebookValue = pullFacebookValue(coinName);
         String twitterValue = pullTwitterValue(coinName);

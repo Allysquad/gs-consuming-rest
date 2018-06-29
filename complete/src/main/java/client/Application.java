@@ -6,6 +6,7 @@ import client.CoinMarketCapAPI.WrapperMapperStorage;
 import client.CoinMarketCapAPI.WrapperMapperStorageRepository;
 import client.GoogleAPI.GoogleTableClient;
 import client.HybridAPP.HybridApplication;
+import client.YinApp.YinApplication;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -73,6 +74,7 @@ public class Application {
                         wrapperMapperStorageRepository.save(wMStorage);
                         // Calling to hybrid.
                         myHybrid.main(wMStorage.getA13_name());
+                        YinApplication.doWork(wMStorage.getA13_name());
                     }
                     counter.updateAndGet(v -> v + 1);
                 }
@@ -103,7 +105,7 @@ public class Application {
 //        log.info(wrapper.toString());
         WrapperMapperStorage wMStorage = new WrapperMapperStorage();
         wMStorage.setA11_id(wrapper.getData().getId());
-        wMStorage.setA13_name(wrapper.getData().getName());
+        wMStorage.setA13_name(wrapper.getData().getName().replaceAll("XRP", "Ripple"));
         wMStorage.setA12_symbol(wrapper.getData().getSymbol());
         wMStorage.setWebsite_slug(wrapper.getData().getWebsite_slug());
         wMStorage.setRank(wrapper.getData().getRank());
