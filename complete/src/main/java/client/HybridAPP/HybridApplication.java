@@ -183,16 +183,18 @@ public class HybridApplication {
         Float returnFV = Float.parseFloat(price) / (Float.parseFloat(facebookValue));
         Float returnTV = Float.parseFloat(price) / (Float.parseFloat(twitterValue));
 
+//        Testing
+//        System.out.println("coin = " + coinName);
+//        System.out.println("market Cap = " + price);
+//        System.out.println("GV = " + googleValue);
+//        System.out.println("FV = " + facebookValue);
+//        System.out.println("TV = " + twitterValue);
+//        System.out.println("this is the google worked number : " + String.format("%.6f", returnGV) + " | ");
+//        System.out.println("this is the facebook worked number : " + String.format("%.6f", returnFV) + " | ");
+//        System.out.println("this is the twitter worked number : " + String.format("%.6f", returnTV) + " | ");
+//        System.out.println("----------------------------------------------------");
 
-        System.out.println("coin = " + coinName);
-        System.out.println("market Cap = " + price);
-        System.out.println("GV = " + googleValue);
-        System.out.println("FV = " + facebookValue);
-        System.out.println("TV = " + twitterValue);
-        System.out.println("this is the google worked number : " + String.format("%.6f", returnGV) + " | ");
-        System.out.println("this is the facebook worked number : " + String.format("%.6f", returnFV) + " | ");
-        System.out.println("this is the twitter worked number : " + String.format("%.6f", returnTV) + " | ");
-        System.out.println("----------------------------------------------------");
+        updateTable(coinName, returnGV, returnFV, returnTV);
     }
 
     public void main(String coinName) {

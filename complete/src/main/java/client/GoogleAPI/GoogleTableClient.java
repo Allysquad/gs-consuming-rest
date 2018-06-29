@@ -51,7 +51,7 @@ public class GoogleTableClient {
             setCurrentTime();
             setExpiredTime();
             // set the corresponding param
-            pstmt.setString(1, value);
+            pstmt.setInt(1, Integer.parseInt(value));
             pstmt.setLong(2, currentTime);
             pstmt.setLong(3, expiredTime);
             pstmt.setString(4, coin);

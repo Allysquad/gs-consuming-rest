@@ -57,15 +57,15 @@ public class Application {
                 AtomicInteger counter = new AtomicInteger(1);
                 Set<Integer> coinSet = new HashSet<>();
                 coinSet.add(1);
-//                coinSet.add(1027);
-//                coinSet.add(52);
-//                coinSet.add(1831);
-//                coinSet.add(1765);
-//                coinSet.add(2);
-//                coinSet.add(512);
-//                coinSet.add(2010);
-//                coinSet.add(1720);
-//                coinSet.add(1958);
+                coinSet.add(1027);
+                coinSet.add(52);
+                coinSet.add(1831);
+                coinSet.add(1765);
+                coinSet.add(2);
+                coinSet.add(512);
+                coinSet.add(2010);
+                coinSet.add(1720);
+                coinSet.add(1958);
 
                 while (counter.get() < 3000) {
                     if (coinSet.contains(counter.get())) {
