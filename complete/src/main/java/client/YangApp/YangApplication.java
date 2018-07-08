@@ -1,5 +1,7 @@
 package client.YangApp;
 
+import client.YinApp.YinRepo;
+
 import java.sql.*;
 
 import static client.YangApp.YangRepo.getSUMofTable;
@@ -29,6 +31,39 @@ public class YangApplication {
             while (rs.next()) {
                 System.out.println(rs.getString("COIN") + "'s Rank for google = " + rs.getString("VALUE"));
                 YangRepo.updateYangValue(rs.getString("COIN"), "GVALUE", rs.getString("VALUE"));
+            }
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    private static void getValuesDividedBySum() {
+        String SQL = "select \"Bitcoin\" as COIN,((select GVALUE from YANGVALUETABLE WHERE COIN = \"Bitcoin\")/(select GVALUE from YANGVALUETABLE where coin = \"SUMTOTAL\")) as \"valuedivsum\" from DUAL \n" +
+                "union all\n" +
+                "select \"Bitcoin Cash\" as COIN,((select GVALUE from YANGVALUETABLE WHERE COIN = \"Bitcoin Cash\")/(select GVALUE from YANGVALUETABLE where coin = \"SUMTOTAL\")) as \"valuedivsum\" from DUAL \n" +
+                "union all\n" +
+                "select \"Cardano\" as COIN,((select GVALUE from YANGVALUETABLE WHERE COIN = \"Cardano\")/(select GVALUE from YANGVALUETABLE where coin = \"SUMTOTAL\")) as \"valuedivsum\" from DUAL \n" +
+                "union all\n" +
+                "select \"EOS\" as COIN,((select GVALUE from YANGVALUETABLE WHERE COIN = \"EOS\")/(select GVALUE from YANGVALUETABLE where coin = \"SUMTOTAL\")) as \"valuedivsum\" from DUAL \n" +
+                "union all\n" +
+                "select \"Ethereum\" as COIN,((select GVALUE from YANGVALUETABLE WHERE COIN = \"Ethereum\")/(select GVALUE from YANGVALUETABLE where coin = \"SUMTOTAL\")) as \"valuedivsum\" from DUAL \n" +
+                "union all\n" +
+                "select \"Litecoin\" as COIN,((select GVALUE from YANGVALUETABLE WHERE COIN = \"Litecoin\")/(select GVALUE from YANGVALUETABLE where coin = \"SUMTOTAL\")) as \"valuedivsum\" from DUAL union all\n" +
+                "select \"IOTA\" as COIN,((select GVALUE from YANGVALUETABLE WHERE COIN = \"IOTA\")/(select GVALUE from YANGVALUETABLE where coin = \"SUMTOTAL\")) as \"valuedivsum\" from DUAL \n" +
+                "union all\n" +
+                "select \"Ripple\" as COIN,((select GVALUE from YANGVALUETABLE WHERE COIN = \"Ripple\")/(select GVALUE from YANGVALUETABLE where coin = \"SUMTOTAL\")) as \"valuedivsum\" from DUAL \n" +
+                "union all\n" +
+                "select \"Stellar\" as COIN,((select GVALUE from YANGVALUETABLE WHERE COIN = \"Stellar\")/(select GVALUE from YANGVALUETABLE where coin = \"SUMTOTAL\")) as \"valuedivsum\" from DUAL union all\n" +
+                "select \"TRON\" as COIN,((select GVALUE from YANGVALUETABLE WHERE COIN = \"TRON\")/(select GVALUE from YANGVALUETABLE where coin = \"SUMTOTAL\")) as \"valuedivsum\" from DUAL";
+
+        try (Connection conn = connect();
+             Statement stmt = conn.createStatement()) {
+            ResultSet rs = stmt.executeQuery(SQL);
+            while (rs.next()) {
+                System.out.println("update yANG");
+                YangRepo.updateYangTable(rs.getString("COIN"), "GSCORE", String.valueOf(Math.round(rs.getFloat("valuedivsum") * 100)));
+                System.out.println(rs.getString("COIN") + "GSCORE" + String.valueOf(Math.round(rs.getFloat("valuedivsum") * 100)));
             }
 
         } catch (SQLException e) {
@@ -132,6 +167,28 @@ public class YangApplication {
         }
     }
 
+    private static void getAll1HVolatilityValuesPC() {
+        String SQL = "SELECT \n" +
+                "(@row_number:=@row_number + 1) AS RANK, A13_NAME, a18_pchng1\n" +
+                "FROM\n" +
+                "(SELECT * FROM\n" +
+                "(SELECT  A13_NAME, CONVERT(a18_pchng1, DECIMAL(15,2))AS a18_pchng1 FROM WRAPPER_MAPPER_STORAGE\n" +
+                "ORDER BY A13_NAME, a14_timestamp  DESC)AS Y,(SELECT @row_number:=0) AS t\n" +
+                "GROUP BY A13_NAME)as z\n" +
+                "ORDER BY a18_pchng1 DESC";
+
+        try (Connection conn = connect();
+             Statement stmt = conn.createStatement()) {
+            ResultSet rs = stmt.executeQuery(SQL);
+            while (rs.next()) {
+                YangRepo.updatePCTableValue(rs.getString("A13_NAME"), "1HOURSCORE", String.valueOf(Integer.parseInt(rs.getString("RANK")) * 4));
+            }
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
     private static void getAll24HVolatilityValues() {
         String SQL = "SELECT a19_pchng24, A13_NAME FROM\n" +
                 " (SELECT * FROM\n" +
@@ -146,6 +203,28 @@ public class YangApplication {
             while (rs.next()) {
                 System.out.println(rs.getString("A13_NAME") + "'s Rank for 24H % price change = " + rs.getString("a19_pchng24"));
                 YangRepo.updateYangValue(rs.getString("A13_NAME"), "24HVALUE", rs.getFloat("a19_pchng24"));
+            }
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    private static void getAll24HVolatilityValuesPC() {
+        String SQL = "SELECT \n" +
+                "(@row_number:=@row_number + 1) AS RANK, A13_NAME\n" +
+                "FROM\n" +
+                "(SELECT * FROM\n" +
+                "(SELECT  A13_NAME, CONVERT(a19_pchng24, DECIMAL(15,2))AS a19_pchng24 FROM WRAPPER_MAPPER_STORAGE\n" +
+                "ORDER BY A13_NAME, a14_timestamp  DESC)AS Y,(SELECT @row_number:=0) AS t\n" +
+                "GROUP BY A13_NAME)as z\n" +
+                "ORDER BY a19_pchng24 DESC";
+
+        try (Connection conn = connect();
+             Statement stmt = conn.createStatement()) {
+            ResultSet rs = stmt.executeQuery(SQL);
+            while (rs.next()) {
+                YangRepo.updatePCTableValue(rs.getString("A13_NAME"), "24HOURSCORE", String.valueOf(Integer.parseInt(rs.getString("RANK")) * 2));
             }
 
         } catch (SQLException e) {
@@ -175,22 +254,44 @@ public class YangApplication {
         }
     }
 
-//    private static void setTScore() {
-//        String SQL = "SELECT COIN, (GSCORE + FSCORE + TSCORE + " +
-//                "MCSCORE + VOLSCORE + 1HSCORE + 24HSCORE + 7DSCORE) AS TTOTALSCORE FROM YINTABLE";
-//
-//        try (Connection conn = connect();
-//             Statement stmt = conn.createStatement()) {
-//            ResultSet rs = stmt.executeQuery(SQL);
-//            while (rs.next()) {
-//                System.out.println(rs.getString("COIN") + "'s TOTAL SCORE = " + rs.getString("TTOTALSCORE"));
-//                YangRepo.updateYangScore(rs.getString("COIN"), Integer.parseInt(rs.getString("TTOTALSCORE")));
-//            }
-//
-//        } catch (SQLException e) {
-//            System.out.println(e.getMessage());
-//        }
-//    }
+
+    private static void getAll7DVolatilityValuesPC() {
+        String SQL = "SELECT \n" +
+                "(@row_number:=@row_number + 1) AS RANK, A13_NAME\n" +
+                "FROM\n" +
+                "(SELECT * FROM\n" +
+                "(SELECT  A13_NAME, CONVERT(a20_pchng7d, DECIMAL(15,2))AS a20_pchng7d FROM WRAPPER_MAPPER_STORAGE\n" +
+                "ORDER BY A13_NAME, a14_timestamp  DESC)AS Y,(SELECT @row_number:=0) AS t\n" +
+                "GROUP BY A13_NAME)as z\n" +
+                "ORDER BY a20_pchng7d DESC";
+
+        try (Connection conn = connect();
+             Statement stmt = conn.createStatement()) {
+            ResultSet rs = stmt.executeQuery(SQL);
+            while (rs.next()) {
+                YangRepo.updatePCTableValue(rs.getString("A13_NAME"), "7DSCORE", rs.getString("RANK"));
+            }
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    private static void setTScore() {
+        String SQL = "SELECT COIN, (1HOURSCORE + 24HOURSCORE + 7DSCORE) AS TTOTALSCORE FROM PCTABLE";
+
+        try (Connection conn = connect();
+             Statement stmt = conn.createStatement()) {
+            ResultSet rs = stmt.executeQuery(SQL);
+            while (rs.next()) {
+                System.out.println(rs.getString("COIN") + "'s TOTAL SCORE = " + rs.getString("TTOTALSCORE"));
+                YangRepo.updatePCTableValue(rs.getString("COIN"), "TOTALSCORE", rs.getString("TTOTALSCORE"));
+            }
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
 
     private static void sumPuller() {
         getSUMofTable("GVALUE");
@@ -214,12 +315,13 @@ public class YangApplication {
         getAll24HVolatilityValues();
         getAll7DVolatilityValues();
         sumPuller();
+        getAll1HVolatilityValuesPC();
+        getAll24HVolatilityValuesPC();
+        getAll7DVolatilityValuesPC();
+        setTScore();
+        getValuesDividedBySum();
 
-
-        //WEIGHT THE VALUES FOR THE 1 HOUR 24 HOUR 7 DAY ATTRIBUTE
-
-
-        //GET VALUE/SUM FOR EVERY ATTRIBUTE -- 3 new table
+        //GET VALUE/SUM FOR EVERY ATTRIBUTE -- 3 new table (Just going to save the scores straight into the yang table)
 
         //GET THE RANK FOR EVERY ATTRIBUTE -- 4
 

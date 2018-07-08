@@ -1,9 +1,5 @@
 package client.YangApp;
 
-import client.YinApp.YinRepo;
-
-import java.math.BigDecimal;
-import java.math.BigInteger;
 import java.sql.*;
 import java.time.Instant;
 
@@ -97,11 +93,9 @@ public class YangRepo {
             pstmt.setString(3, coinName);
             // execute the delete statement
             pstmt.executeUpdate();
-
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
-
     }
 
     public static void updateYangValue(String coinName, String column, Float value) {
@@ -122,5 +116,42 @@ public class YangRepo {
             System.out.println(e.getMessage());
         }
 
+    }
+
+    public static void updatePCTableValue(String coinName, String column, String value) {
+
+        String sql = "UPDATE PCTABLE SET " + column + " = ? WHERE COIN = ?";
+        setCurrentTime();
+
+        try (Connection conn = connect();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            // set the corresponding param
+            pstmt.setString(1, value);
+            pstmt.setString(2, coinName);
+            // execute the delete statement
+            pstmt.executeUpdate();
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+
+    public static void updateYangTable(String coinName, String column, String value) {
+
+        String sql = "UPDATE YANGTABLE SET " + column + " = ?, TIMESTAMP = ? WHERE COIN = ?";
+        setCurrentTime();
+
+        try (Connection conn = connect();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            // set the corresponding param
+            pstmt.setString(1, value);
+            pstmt.setInt(2, (int) currentTime);
+            pstmt.setString(3, coinName);
+            // execute the delete statement
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
     }
 }
