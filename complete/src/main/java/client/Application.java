@@ -6,6 +6,7 @@ import client.CoinMarketCapAPI.WrapperMapperStorage;
 import client.CoinMarketCapAPI.WrapperMapperStorageRepository;
 import client.GoogleAPI.GoogleTableClient;
 import client.HybridAPP.HybridApplication;
+import client.YangApp.YangApplication;
 import client.YinApp.YinApplication;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -74,10 +75,12 @@ public class Application {
                         wrapperMapperStorageRepository.save(wMStorage);
                         // Calling to hybrid.
                         myHybrid.main(wMStorage.getA13_name());
-                        YinApplication.doWork(wMStorage.getA13_name());
                     }
                     counter.updateAndGet(v -> v + 1);
                 }
+                // Only doing the algorithm after everything else has already been updated.
+                YinApplication.doWork();
+                YangApplication.doWork();
                 Thread.sleep(1000 * 60 * 30);
             } catch (InterruptedException e) {
                 e.printStackTrace();

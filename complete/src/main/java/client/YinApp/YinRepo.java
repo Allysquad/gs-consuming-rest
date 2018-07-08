@@ -31,7 +31,7 @@ public class YinRepo {
         return conn;
     }
 
-    public static void storeYinScore(String coinName, Integer yinScore) {
+    public static void updateYinScore(String coinName, Integer yinScore) {
         String sql = "UPDATE YINTABLE SET TOTALSCORE = ?, TIMESTAMP = ? WHERE COIN = ?";
         setCurrentTime();
 
@@ -50,7 +50,7 @@ public class YinRepo {
         }
     }
 
-    public static void storeYinScore(String coinName, String column, Integer yinScore) {
+    public static void updateYinScore(String coinName, String column, Integer yinScore) {
         String sql = "UPDATE YINTABLE SET " + column + " = ?, TIMESTAMP = ? WHERE COIN = ?";
         setCurrentTime();
 
