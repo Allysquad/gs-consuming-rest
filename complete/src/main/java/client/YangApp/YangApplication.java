@@ -38,7 +38,7 @@ public class YangApplication {
         }
     }
 
-    private static void getValuesDividedBySum() {
+    private static void getGValuesDividedBySum() {
         String SQL = "select \"Bitcoin\" as COIN,((select GVALUE from YANGVALUETABLE WHERE COIN = \"Bitcoin\")/(select GVALUE from YANGVALUETABLE where coin = \"SUMTOTAL\")) as \"valuedivsum\" from DUAL \n" +
                 "union all\n" +
                 "select \"Bitcoin Cash\" as COIN,((select GVALUE from YANGVALUETABLE WHERE COIN = \"Bitcoin Cash\")/(select GVALUE from YANGVALUETABLE where coin = \"SUMTOTAL\")) as \"valuedivsum\" from DUAL \n" +
@@ -61,9 +61,7 @@ public class YangApplication {
              Statement stmt = conn.createStatement()) {
             ResultSet rs = stmt.executeQuery(SQL);
             while (rs.next()) {
-                System.out.println("update yANG");
                 YangRepo.updateYangTable(rs.getString("COIN"), "GSCORE", String.valueOf(Math.round(rs.getFloat("valuedivsum") * 100)));
-                System.out.println(rs.getString("COIN") + "GSCORE" + String.valueOf(Math.round(rs.getFloat("valuedivsum") * 100)));
             }
 
         } catch (SQLException e) {
@@ -88,6 +86,37 @@ public class YangApplication {
         }
     }
 
+    private static void getFValuesDividedBySum() {
+        String SQL = "select \"Bitcoin\" as COIN,((select FVALUE from YANGVALUETABLE WHERE COIN = \"Bitcoin\")/(select FVALUE from YANGVALUETABLE where coin = \"SUMTOTAL\")) as \"valuedivsum\" from DUAL \n" +
+                "union all\n" +
+                "select \"Bitcoin Cash\" as COIN,((select FVALUE from YANGVALUETABLE WHERE COIN = \"Bitcoin Cash\")/(select FVALUE from YANGVALUETABLE where coin = \"SUMTOTAL\")) as \"valuedivsum\" from DUAL \n" +
+                "union all\n" +
+                "select \"Cardano\" as COIN,((select FVALUE from YANGVALUETABLE WHERE COIN = \"Cardano\")/(select FVALUE from YANGVALUETABLE where coin = \"SUMTOTAL\")) as \"valuedivsum\" from DUAL \n" +
+                "union all\n" +
+                "select \"EOS\" as COIN,((select FVALUE from YANGVALUETABLE WHERE COIN = \"EOS\")/(select FVALUE from YANGVALUETABLE where coin = \"SUMTOTAL\")) as \"valuedivsum\" from DUAL \n" +
+                "union all\n" +
+                "select \"Ethereum\" as COIN,((select FVALUE from YANGVALUETABLE WHERE COIN = \"Ethereum\")/(select FVALUE from YANGVALUETABLE where coin = \"SUMTOTAL\")) as \"valuedivsum\" from DUAL \n" +
+                "union all\n" +
+                "select \"Litecoin\" as COIN,((select FVALUE from YANGVALUETABLE WHERE COIN = \"Litecoin\")/(select FVALUE from YANGVALUETABLE where coin = \"SUMTOTAL\")) as \"valuedivsum\" from DUAL union all\n" +
+                "select \"IOTA\" as COIN,((select FVALUE from YANGVALUETABLE WHERE COIN = \"IOTA\")/(select FVALUE from YANGVALUETABLE where coin = \"SUMTOTAL\")) as \"valuedivsum\" from DUAL \n" +
+                "union all\n" +
+                "select \"Ripple\" as COIN,((select FVALUE from YANGVALUETABLE WHERE COIN = \"Ripple\")/(select FVALUE from YANGVALUETABLE where coin = \"SUMTOTAL\")) as \"valuedivsum\" from DUAL \n" +
+                "union all\n" +
+                "select \"Stellar\" as COIN,((select FVALUE from YANGVALUETABLE WHERE COIN = \"Stellar\")/(select FVALUE from YANGVALUETABLE where coin = \"SUMTOTAL\")) as \"valuedivsum\" from DUAL union all\n" +
+                "select \"TRON\" as COIN,((select FVALUE from YANGVALUETABLE WHERE COIN = \"TRON\")/(select FVALUE from YANGVALUETABLE where coin = \"SUMTOTAL\")) as \"valuedivsum\" from DUAL";
+
+        try (Connection conn = connect();
+             Statement stmt = conn.createStatement()) {
+            ResultSet rs = stmt.executeQuery(SQL);
+            while (rs.next()) {
+                YangRepo.updateYangTable(rs.getString("COIN"), "FSCORE", String.valueOf(Math.round(rs.getFloat("valuedivsum") * 100)));
+            }
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
     private static void getAllTwitterValues() {
         String SQL = "SELECT FOLLOWERS, COINNAME FROM (" +
                 "SELECT * FROM TWITTERTABLE ORDER BY FOLLOWERS DESC)AS Y";
@@ -98,6 +127,37 @@ public class YangApplication {
             while (rs.next()) {
                 System.out.println(rs.getString("COINNAME") + "'s Rank for twitter = " + rs.getString("FOLLOWERS"));
                 YangRepo.updateYangValue(rs.getString("COINNAME"), "TVALUE", rs.getString("FOLLOWERS"));
+            }
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    private static void getTValuesDividedBySum() {
+        String SQL = "select \"Bitcoin\" as COIN,((select TVALUE from YANGVALUETABLE WHERE COIN = \"Bitcoin\")/(select TVALUE from YANGVALUETABLE where coin = \"SUMTOTAL\")) as \"valuedivsum\" from DUAL \n" +
+                "union all\n" +
+                "select \"Bitcoin Cash\" as COIN,((select TVALUE from YANGVALUETABLE WHERE COIN = \"Bitcoin Cash\")/(select TVALUE from YANGVALUETABLE where coin = \"SUMTOTAL\")) as \"valuedivsum\" from DUAL \n" +
+                "union all\n" +
+                "select \"Cardano\" as COIN,((select TVALUE from YANGVALUETABLE WHERE COIN = \"Cardano\")/(select TVALUE from YANGVALUETABLE where coin = \"SUMTOTAL\")) as \"valuedivsum\" from DUAL \n" +
+                "union all\n" +
+                "select \"EOS\" as COIN,((select TVALUE from YANGVALUETABLE WHERE COIN = \"EOS\")/(select TVALUE from YANGVALUETABLE where coin = \"SUMTOTAL\")) as \"valuedivsum\" from DUAL \n" +
+                "union all\n" +
+                "select \"Ethereum\" as COIN,((select TVALUE from YANGVALUETABLE WHERE COIN = \"Ethereum\")/(select TVALUE from YANGVALUETABLE where coin = \"SUMTOTAL\")) as \"valuedivsum\" from DUAL \n" +
+                "union all\n" +
+                "select \"Litecoin\" as COIN,((select TVALUE from YANGVALUETABLE WHERE COIN = \"Litecoin\")/(select TVALUE from YANGVALUETABLE where coin = \"SUMTOTAL\")) as \"valuedivsum\" from DUAL union all\n" +
+                "select \"IOTA\" as COIN,((select TVALUE from YANGVALUETABLE WHERE COIN = \"IOTA\")/(select TVALUE from YANGVALUETABLE where coin = \"SUMTOTAL\")) as \"valuedivsum\" from DUAL \n" +
+                "union all\n" +
+                "select \"Ripple\" as COIN,((select TVALUE from YANGVALUETABLE WHERE COIN = \"Ripple\")/(select TVALUE from YANGVALUETABLE where coin = \"SUMTOTAL\")) as \"valuedivsum\" from DUAL \n" +
+                "union all\n" +
+                "select \"Stellar\" as COIN,((select TVALUE from YANGVALUETABLE WHERE COIN = \"Stellar\")/(select TVALUE from YANGVALUETABLE where coin = \"SUMTOTAL\")) as \"valuedivsum\" from DUAL union all\n" +
+                "select \"TRON\" as COIN,((select TVALUE from YANGVALUETABLE WHERE COIN = \"TRON\")/(select TVALUE from YANGVALUETABLE where coin = \"SUMTOTAL\")) as \"valuedivsum\" from DUAL";
+
+        try (Connection conn = connect();
+             Statement stmt = conn.createStatement()) {
+            ResultSet rs = stmt.executeQuery(SQL);
+            while (rs.next()) {
+                YangRepo.updateYangTable(rs.getString("COIN"), "TSCORE", String.valueOf(Math.round(rs.getFloat("valuedivsum") * 100)));
             }
 
         } catch (SQLException e) {
@@ -319,7 +379,16 @@ public class YangApplication {
         getAll24HVolatilityValuesPC();
         getAll7DVolatilityValuesPC();
         setTScore();
-        getValuesDividedBySum();
+        getGValuesDividedBySum();
+        getFValuesDividedBySum();
+        getTValuesDividedBySum();
+//        getMPValuesDividedBySum();
+//        getVolValuesDividedBySum();
+//        getPChangeValuesDividedBySum();
+//        setTScore2();
+
+
+
 
         //GET VALUE/SUM FOR EVERY ATTRIBUTE -- 3 new table (Just going to save the scores straight into the yang table)
 
