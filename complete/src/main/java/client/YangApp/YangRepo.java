@@ -136,6 +136,24 @@ public class YangRepo {
         }
     }
 
+    public static void updateSocialTableValue(String coinName, String column, String value) {
+
+        String sql = "UPDATE SOCIALTABLE SET " + column + " = ? WHERE COIN = ?";
+        setCurrentTime();
+
+        try (Connection conn = connect();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            // set the corresponding param
+            pstmt.setString(1, value);
+            pstmt.setString(2, coinName);
+            // execute the delete statement
+            pstmt.executeUpdate();
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
 
     public static void updateYangTable(String coinName, String column, String value) {
 
